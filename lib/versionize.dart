@@ -2,7 +2,7 @@ library versionize;
 
 import 'dart:io';
 import 'package:yaml/yaml.dart';
-import 'package:xml/xml.dart' as xml;
+import 'package:xml/xml.dart';
 
 class Versionize {
   final String pubspecPath;
@@ -65,7 +65,7 @@ class Versionize {
   Future<void> _updateIOSPlistVersion(String versionNumber, String buildNumber) async {
     final plistFile = File(iosPlistPath);
     final content = await plistFile.readAsString();
-    final document = xml.parse(content);
+    final document = XmlDocument.parse(content);
 
     final versionKey = document.findAllElements('key').firstWhere((element) => element.text == 'CFBundleShortVersionString').nextElementSibling!;
     final buildKey = document.findAllElements('key').firstWhere((element) => element.text == 'CFBundleVersion').nextElementSibling!;
