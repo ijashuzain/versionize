@@ -37,8 +37,7 @@ class Versionize {
     final buildNumber = int.parse(versionParts[1]);
     final newBuildNumber = buildNumber + 1;
     final newVersion = '$versionNumber+$newBuildNumber';
-    final updatedContent = content.replaceAll(
-        RegExp(r'version: \S+'), 'version: $newVersion');
+    final updatedContent = content.replaceAll(RegExp(r'version: \S+'), 'version: $newVersion');
     await pubspecFile.writeAsString(updatedContent);
     return newVersion;
   }
@@ -50,9 +49,7 @@ class Versionize {
 
     final gradleFile = File(androidGradlePath);
     final content = await gradleFile.readAsString();
-    final updatedContent = content
-        .replaceAll(RegExp(r'versionName "\S+"'), 'versionName "$versionName"')
-        .replaceAll(RegExp(r'versionCode \d+'), 'versionCode $versionCode');
+    final updatedContent = content.replaceAll(RegExp(r'versionName "\S+"'), 'versionName "$versionName"').replaceAll(RegExp(r'versionCode \d+'), 'versionCode $versionCode');
     await gradleFile.writeAsString(updatedContent);
   }
 
@@ -70,14 +67,8 @@ class Versionize {
     final content = await plistFile.readAsString();
     final document = xml.parse(content);
 
-    final versionKey = document
-        .findAllElements('key')
-        .firstWhere((element) => element.text == 'CFBundleShortVersionString')
-        .nextElementSibling!;
-    final buildKey = document
-        .findAllElements('key')
-        .firstWhere((element) => element.text == 'CFBundleVersion')
-        .nextElementSibling!;
+    final versionKey = document.findAllElements('key').firstWhere((element) => element.text == 'CFBundleShortVersionString').nextElementSibling!;
+    final buildKey = document.findAllElements('key').firstWhere((element) => element.text == 'CFBundleVersion').nextElementSibling!;
 
     versionKey.innerText = versionNumber;
     buildKey.innerText = buildNumber;
@@ -88,10 +79,7 @@ class Versionize {
   Future<void> _updateIOSProjectVersion(String buildNumber) async {
     final projectFile = File(iosProjectPath);
     final content = await projectFile.readAsString();
-    final updatedContent = content.replaceAll(
-        RegExp(r'CURRENT_PROJECT_VERSION = \S+;'),
-        'CURRENT_PROJECT_VERSION = $buildNumber;');
+    final updatedContent = content.replaceAll(RegExp(r'CURRENT_PROJECT_VERSION = \S+;'), 'CURRENT_PROJECT_VERSION = $buildNumber;');
     await projectFile.writeAsString(updatedContent);
   }
 }
-
