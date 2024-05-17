@@ -2,7 +2,6 @@ name: versionize
 description: A package for updating version and build number of iOS and Android apps with a single command.
 version: 0.0.1
 homepage: https://github.com/ijashuzain/versionize
-author: Ijas Hussain
 
 environment:
   sdk: '>=3.3.3 <4.0.0'
