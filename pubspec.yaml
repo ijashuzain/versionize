@@ -15,7 +15,7 @@ dependencies:
   args: ^2.5.0
 
 executables:
-  versionize: bin/versionize.dart
+  versionize: versionize
 
 dev_dependencies:
   flutter_test:
